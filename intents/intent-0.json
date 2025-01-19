@@ -1,0 +1,51 @@
+{
+  "id": "e992f48c-332b-4616-a0a3-ec56425b32de",
+  "name": "intent-0",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "403fa2ad-e8d2-4c85-9bb5-0ebaf770ac58",
+          "name": "train-number",
+          "required": false,
+          "dataType": "@sys.number",
+          "value": "$train-number",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        }
+      ],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "I am referring this to concerned authorities. Kindly keep patience.",
+            "Sorry for the bad experience. Go to Home \u003e Complaint Registration \u003e ADD Complaint."
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}
