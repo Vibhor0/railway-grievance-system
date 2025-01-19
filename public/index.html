@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot Interface</h1>
+    <div id="chatbox"></div>
+    <input type="text" id="message" placeholder="Type your message...">
+    <button id="send">Send</button>
+
+    <script>
+        const sendButton = document.getElementById('send');
+        const messageInput = document.getElementById('message');
+        const chatbox = document.getElementById('chatbox');
+
+        sendButton.addEventListener('click', () => {
+            const userMessage = messageInput.value;
+            if (userMessage.trim()) {
+                chatbox.innerHTML += `<p><strong>User:</strong> ${userMessage}</p>`;
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    chatbox.innerHTML += `<p><strong>Bot:</strong> ${data.reply}</p>`;
+                });
+            }
+            messageInput.value = '';
+        });
+    </script>
+</body>
+</html>
