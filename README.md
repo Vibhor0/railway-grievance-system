@@ -1,6 +1,6 @@
 # railway-grievance-system
 
-A web application using the following tech stack: Flask (Python), SQLite, HTML, CSS, and JavaScript. The web app should serve as an Indian Railways Grievance Management System with the following features and workflow:  
+A web application using the following tech stack: Flask (Python), SQLite, HTML, CSS, and JavaScript. The web app should serve as an Indian Railways Grievance Management System with the following features and workflow:     
 
 1. **User Registration and Authentication**:  
    - Passengers register with a username and password, which are stored securely in an SQLite database.  
