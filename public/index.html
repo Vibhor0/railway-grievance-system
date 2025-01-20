@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offline Chatbot</title>
-</head>
-<body>
-    <h1>Chatbot Interface</h1>
-    <div id="chatbox"></div>
-    <input type="text" id="message" placeholder="Type your message...">
-    <button id="send">Send</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Railway Chatbot</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="chat-container">
+      <!--<button id="theme-toggle" aria-label="Toggle dark mode">
+        Toggle Dark Mode
+      </button>-->
+      <h3>Railway Chatbot</h3>
+      <div id="chat-window"></div>
+      <input id="user-input" type="text" placeholder="Type your message..." />
+      <button id="send-button">Send</button>
+    </div>
 
     <script>
-        const sendButton = document.getElementById('send');
-        const messageInput = document.getElementById('message');
-        const chatbox = document.getElementById('chatbox');
+      const inputField = document.getElementById("user-input");
+      const sendButton = document.getElementById("send-button");
+      const chatWindow = document.getElementById("chat-window");
 
-        sendButton.addEventListener('click', () => {
-            const userMessage = messageInput.value;
-            if (userMessage.trim()) {
-                chatbox.innerHTML += `<p><strong>User:</strong> ${userMessage}</p>`;
-                fetch('/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userMessage })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    chatbox.innerHTML += `<p><strong>Bot:</strong> ${data.reply}</p>`;
-                });
-            }
-            messageInput.value = '';
-        });
+      function appendMessage(sender, message) {
+        const bubble = document.createElement("div");
+        bubble.className =
+          sender === "user"
+            ? "chat-bubble user-message"
+            : "chat-bubble bot-message";
+        bubble.textContent = message;
+        chatWindow.appendChild(bubble);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+
+      function sendMessage() {
+        const message = inputField.value.trim();
+        if (message) {
+          appendMessage("user", message);
+          fetch("/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+          })
+            .then((response) => response.json())
+            .then((data) => appendMessage("bot", data.reply))
+            .catch((error) => console.error("Error:", error));
+          inputField.value = "";
+        }
+      }
+
+      inputField.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+
+      sendButton.addEventListener("click", sendMessage);
     </script>
-</body>
+  </body>
 </html>
